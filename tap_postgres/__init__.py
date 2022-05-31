@@ -287,7 +287,9 @@ def do_sync(conn_config, catalog, default_replication_method, state, state_file=
     else:
         end_lsn = None
 
-    refresh_streams_schema(conn_config, streams)
+    # Do *not* refresh streams schema on sync
+    # See https://github.com/transferwise/pipelinewise-tap-postgres/pull/129
+    # refresh_streams_schema(conn_config, streams)
 
     sync_method_lookup, traditional_streams, logical_streams = \
         sync_method_for_streams(streams, state, default_replication_method)
